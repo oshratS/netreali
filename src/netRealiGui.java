@@ -267,20 +267,20 @@ public class netRealiGui extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         String titleText = titleTextField.getText();
         String bodyText = bodyTextField.getText();
-        java.sql.Date dateText = new java.sql.Date(123); // TODO: replace this with the date field value
+        String dateText = dateTextField.getText();
         
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali", "root", "zxasqw12");
             
             // the mysql insert statement
-            String query = "INSERT INTO articles (title, body, date)"
+            String query = "INSERT INTO search_tasks (title, body, date)"
               + " VALUES (?, ?, ?)";
 
             // create the mysql insert preparedstatement
             PreparedStatement preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString (1, titleText);
             preparedStmt.setString (2, bodyText);
-            preparedStmt.setDate(3, dateText);
+            preparedStmt.setString(3, dateText);
 
             // execute the preparedstatement
             preparedStmt.execute();
