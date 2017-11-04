@@ -20,26 +20,26 @@ public class haaretzScraper {
             Document doc = Jsoup.connect(domain + "/news").get();
             
              // get all links in page
-            Elements links = doc.select("ul.list-category-articles li > a");
+            Elements links = doc.select("article > a");
             links.forEach(link -> {
                 String href = link.attr("href");
                 try {
                     // Getting the article
-                    Document articleDoc = Jsoup.connect(href).get();
+                    Document articleDoc = Jsoup.connect(domain + href).get();
 
                     // get the title
                     String articleTitle = articleDoc.title();
                     System.out.println(articleTitle);
 
                     // get the timestamp
-                    Element timestampElm = articleDoc.getElementsByClass("article-he-date").first();
+                    Element timestampElm = articleDoc.select(".art__info time").first();
                     String articleTimestamp = timestampElm.text();
-                    articleTimestamp = articleTimestamp.replace(" עודכן בתאריך: ", " ").trim();
+                    articleTimestamp = articleTimestamp.trim();
 
                     System.out.println(articleTimestamp);
 
                     // get the body
-                    Element bodyElm = articleDoc.getElementsByClass("article-text").first();
+                    Element bodyElm = articleDoc.getElementsByClass("t-body-text").first();
                     String articleBody = articleDoc.html();
 
                     try {
