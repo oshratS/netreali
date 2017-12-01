@@ -35,17 +35,5 @@ public class TxtTranslator {
     
     String transText = TxtTranslator.translate(text);
     System.out.printf("Translation: %s%n", transText);
-    
-    SettlementExtractor SettlExtractor = new SettlementExtractor();           
-    ArrayList<String> SettlExtracted = SettlExtractor.extract(transText);
-    System.out.printf("Places: %s%n", SettlExtracted.toString());
-    
-    NamesExtractor NamesExtractor = new NamesExtractor();
-    ArrayList<String> NamesExtracted = NamesExtractor.extract(transText);
-    System.out.printf("Names: %s%n", NamesExtracted.toString());
-    
-    DateTimeExtractor dateExtractor = new DateTimeExtractor();       
-    ArrayList<String> dateExtracted = dateExtractor.extract(transText);
-    System.out.printf("Dates: %s%n", dateExtracted.toString());
   }
 }

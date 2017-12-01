@@ -41,7 +41,7 @@ public class SettlementExtractor implements EntityExtractorInterface {
 
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(maarivScraper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MaarivScraper.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (stmt != null) {
                 stmt.close();

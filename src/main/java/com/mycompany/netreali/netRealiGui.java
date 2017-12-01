@@ -3,6 +3,7 @@ package com.mycompany.netreali;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -270,27 +271,8 @@ public class netRealiGui extends javax.swing.JFrame {
         String bodyText = bodyTextField.getText();
         String dateText = dateTextField.getText();
         
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali", "root", "zxasqw12");
-            
-            // the mysql insert statement
-            String query = "INSERT INTO search_tasks (title, body, date)"
-              + " VALUES (?, ?, ?)";
-
-            // create the mysql insert preparedstatement
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setString (1, titleText);
-            preparedStmt.setString (2, bodyText);
-            preparedStmt.setString(3, dateText);
-
-            // execute the preparedstatement
-            preparedStmt.execute();
-
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(netRealiGui.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
+        SearchHandler sh = new SearchHandler(titleText, bodyText, dateText);
+        sh.search();      
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void clearButtenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtenActionPerformed
