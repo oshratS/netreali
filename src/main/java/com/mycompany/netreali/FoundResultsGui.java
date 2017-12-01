@@ -64,9 +64,7 @@ public class FoundResultsGui extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NetReali");
         setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(900, 900));
         setName("NetReali"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(600, 800));
 
         MainPanel.setBackground(new java.awt.Color(255, 255, 255));
         MainPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));

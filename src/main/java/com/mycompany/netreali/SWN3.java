@@ -149,8 +149,8 @@ public class SWN3 {
         return "";
     }
 
-    public static void main(String[] args) throws IOException {
-              String pathToSWN = "C:\\Users\\oshrat\\Documents\\NetBeansProjects\\netreali\\src\\main\\java\\com\\mycompany\\netreali\\SentiWordNet_3.0.0_20130122.txt";
+    public static void main(String[] args) throws IOException {                                 
+        String pathToSWN = "C:\\Users\\oshrat\\Documents\\NetBeansProjects\\netreali\\src\\main\\resources\\SentiWordNet_3.0.0_20130122.txt";
         SWN3 sentiwordnet = new SWN3(pathToSWN);
 
         System.out.println("good#a " + sentiwordnet.extract("good", "a"));

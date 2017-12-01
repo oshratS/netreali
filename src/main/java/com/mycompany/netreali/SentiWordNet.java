@@ -330,7 +330,7 @@ public class SentiWordNet {
     }
     
     public static void main(String[] args) throws IOException, Exception {
-        String path = "C:\\Users\\oshrat\\Documents\\NetBeansProjects\\netreali\\src\\main\\java\\com\\mycompany\\netreali\\SentiWordNet_3.0.0_20130122.txt";
+        String path = "C:\\Users\\oshrat\\Documents\\NetBeansProjects\\netreali\\src\\main\\resources\\SentiWordNet_3.0.0_20130122.txt";
         SentiWordNet classifier = new SentiWordNet(path);
                 	
         // Comment the approaches you do not want to check
