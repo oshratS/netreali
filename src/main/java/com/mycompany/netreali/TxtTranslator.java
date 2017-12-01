@@ -9,7 +9,6 @@ package com.mycompany.netreali;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.Translate.TranslateOption;
 import com.google.cloud.translate.TranslateOptions;
-import com.google.cloud.translate.Translation;
 import java.util.ArrayList;
 
 /**
@@ -37,10 +36,13 @@ public class TxtTranslator {
     String transText = TxtTranslator.translate(text);
     System.out.printf("Translation: %s%n", transText);
     
-    SettlementExtractor extractor = new SettlementExtractor();           
-    ArrayList<String> extracted = extractor.extract(transText);
-    System.out.printf("Places: %s%n", extracted.toString());
+    SettlementExtractor SettlExtractor = new SettlementExtractor();           
+    ArrayList<String> SettlExtracted = SettlExtractor.extract(transText);
+    System.out.printf("Places: %s%n", SettlExtracted.toString());
     
+    NamesExtractor NamesExtractor = new NamesExtractor();
+    ArrayList<String> NamesExtracted = NamesExtractor.extract(transText);
+    System.out.printf("Names: %s%n", NamesExtracted.toString());
     
     DateTimeExtractor dateExtractor = new DateTimeExtractor();       
     ArrayList<String> dateExtracted = dateExtractor.extract(transText);
