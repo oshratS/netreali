@@ -44,7 +44,7 @@ public class DateTimeExtractor implements EntityExtractorInterface {
 
     private void searchAndAdd(Matcher m, ArrayList<String> extracted) {
         while (m.find()) {
-            extracted.add(m.group().toLowerCase());
+            extracted.add(m.group().toLowerCase().replace(',', ' ').trim());
         }
     }
 

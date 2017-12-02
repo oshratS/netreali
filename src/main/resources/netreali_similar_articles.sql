@@ -18,28 +18,29 @@ USE `netreali`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `search_tasks`
+-- Table structure for table `similar_articles`
 --
 
-DROP TABLE IF EXISTS `search_tasks`;
+DROP TABLE IF EXISTS `similar_articles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `search_tasks` (
+CREATE TABLE `similar_articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` varchar(45) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `body` longtext NOT NULL,
+  `extracted_meta_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `target_article_id` int(11) NOT NULL,
+  `similarity_score` decimal(3,2) unsigned zerofill DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Atricles that the user seeks';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `search_tasks`
+-- Dumping data for table `similar_articles`
 --
 
-LOCK TABLES `search_tasks` WRITE;
-/*!40000 ALTER TABLE `search_tasks` DISABLE KEYS */;
-/*!40000 ALTER TABLE `search_tasks` ENABLE KEYS */;
+LOCK TABLES `similar_articles` WRITE;
+/*!40000 ALTER TABLE `similar_articles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `similar_articles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-02 17:48:58
+-- Dump completed on 2017-12-02 17:48:57

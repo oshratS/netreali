@@ -46,7 +46,7 @@ public class HaaretzScraper {
                     // System.out.println(articleTimestamp);
 
                     // get the body
-                    Element bodyElm = articleDoc.getElementsByClass("t-body-text").first();
+                    Element bodyElm = articleDoc.select(".l-article__entry .t-body-text").first();
                     String articleBody = bodyElm.text();
                     scraped.put("body", articleBody);
 

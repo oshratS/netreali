@@ -34,7 +34,7 @@ public class SettlementExtractor implements EntityExtractorInterface {
             ResultSet rs = stmt.executeQuery(query);
             settlements = new ArrayList<>();
             while (rs.next()) {
-                settlements.add(rs.getString("name").toLowerCase());
+                settlements.add(rs.getString("name").toLowerCase().trim());
             }
 
             conn.close();

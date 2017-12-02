@@ -34,7 +34,7 @@ public class NamesExtractor implements EntityExtractorInterface {
             ResultSet rs = stmt.executeQuery(query);
             names = new ArrayList<>();
             while (rs.next()) {
-                names.add(rs.getString("name").toLowerCase());
+                names.add(rs.getString("name").toLowerCase().trim());
             }
 
             conn.close();

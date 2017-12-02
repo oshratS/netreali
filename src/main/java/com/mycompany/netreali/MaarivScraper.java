@@ -25,10 +25,10 @@ public class MaarivScraper {
             Document doc = Jsoup.connect(domain + "/news/military").get();
 
             // get all links in page
-            Elements links = doc.select("ul.list-category-articles li > a");
+            Elements links = doc.select("ul.list-category-articles li > a:first-child");
             links.forEach(link -> {
                 String href = link.attr("href");
-                scraped.put("url", domain + href);
+                scraped.put("url", href);
 
                 try {
                     // Getting the article
