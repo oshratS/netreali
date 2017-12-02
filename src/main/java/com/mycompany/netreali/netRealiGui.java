@@ -15,7 +15,6 @@ import java.util.logging.Logger;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author oshrat
@@ -270,9 +269,9 @@ public class netRealiGui extends javax.swing.JFrame {
         String titleText = titleTextField.getText();
         String bodyText = bodyTextField.getText();
         String dateText = dateTextField.getText();
-        
+
         SearchHandler sh = new SearchHandler(titleText, bodyText, dateText);
-        sh.search();      
+        sh.search();
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void clearButtenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtenActionPerformed

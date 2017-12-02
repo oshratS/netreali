@@ -8,6 +8,7 @@ package com.mycompany.netreali;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +20,8 @@ import java.util.Map;
  *
  * @author oshrat
  */
-public class ExtractionHandler {       
+public class ExtractionHandler {
+
     public Map<String, ArrayList<String>> extract(String text) {
         String transText = null;
         try {
@@ -31,7 +33,7 @@ public class ExtractionHandler {
         }
 
         Map<String, ArrayList<String>> extracted = new HashMap<>();
-        
+
         try {
             // Extracting settlements
             SettlementExtractor SettlExtractor = new SettlementExtractor();
@@ -65,22 +67,38 @@ public class ExtractionHandler {
 
     public void extractAndSave(String text, int articleId) {
         Map<String, ArrayList<String>> extracted = extract(text);
-        
-        // the mysql insert statement
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "zxasqw12")) {
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "zxasqw12")) {
             // the mysql insert statement
             String query = "INSERT INTO extracted_meta (article_id, settlements, dates, names)"
                     + " VALUES (?, ?, ?, ?)";
 
             // create the mysql insert preparedstatement
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setInt (1, articleId);
-            preparedStmt.setString (2, extracted.get("settlements").toString());
-            preparedStmt.setString (3, extracted.get("dates").toString());
-            preparedStmt.setString (4, extracted.get("names").toString());            
+            preparedStmt.setInt(1, articleId);
+            preparedStmt.setString(2, extracted.get("settlements").toString());
+            preparedStmt.setString(3, extracted.get("dates").toString());
+            preparedStmt.setString(4, extracted.get("names").toString());
 
             // execute the preparedstatement
             preparedStmt.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void extractAndSave() {
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "zxasqw12")) {
+            // the mysql insert statement
+            String query = "SELECT id, body FROM articles";
+
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            ResultSet rs = preparedStmt.executeQuery();
+
+            while (rs.next()) {
+                extractAndSave(rs.getString("body"), rs.getInt("id"));
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, ex);
         }

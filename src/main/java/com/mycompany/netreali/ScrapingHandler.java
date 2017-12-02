@@ -10,16 +10,17 @@ package com.mycompany.netreali;
  * @author oshrat
  */
 public class ScrapingHandler {
+
     private final YNETScraper ynetScraper;
     private final MaarivScraper maarivScraper;
     private final HaaretzScraper haaretzScraper;
-    
+
     public ScrapingHandler() {
         ynetScraper = new YNETScraper();
         maarivScraper = new MaarivScraper();
         haaretzScraper = new HaaretzScraper();
-    }                
-    
+    }
+
     public void scrapeAndSave(int searchTaskId) {
         ynetScraper.scrapeAndSave(searchTaskId);
         maarivScraper.scrapeAndSave(searchTaskId);

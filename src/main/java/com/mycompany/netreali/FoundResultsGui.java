@@ -355,7 +355,7 @@ public class FoundResultsGui extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     /**
      * @param args the command line arguments
      */
@@ -387,7 +387,7 @@ public class FoundResultsGui extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 FoundResultsGui gui = new FoundResultsGui();
-                gui.setVisible(true);      
+                gui.setVisible(true);
             }
         });
     }
@@ -423,4 +423,3 @@ public class FoundResultsGui extends javax.swing.JFrame {
     private javax.swing.JPanel ynetPanel2;
     // End of variables declaration//GEN-END:variables
 }
-

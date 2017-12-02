@@ -128,28 +128,25 @@ public class SWN3 {
 
     public String extract(String word, String type) {
         Double score = dictionary.get(word + "#" + type);
-               
+
         if (score == null) {
             return "";
         }
-                
+
         if (score > 0 && score < 0.5) {
             return "positive";
-        }
-        else if (score >= 0.5) {
+        } else if (score >= 0.5) {
             return "strong_positive";
-        }       
-        else if (score < 0 && score > -0.5) {
+        } else if (score < 0 && score > -0.5) {
             return "negative";
-        }       
-        else if (score <= -0.5) {
+        } else if (score <= -0.5) {
             return "strong_negative";
         }
-        
+
         return "";
     }
 
-    public static void main(String[] args) throws IOException {                                 
+    public static void main(String[] args) throws IOException {
         String pathToSWN = "C:\\Users\\oshrat\\Documents\\NetBeansProjects\\netreali\\src\\main\\resources\\SentiWordNet_3.0.0_20130122.txt";
         SWN3 sentiwordnet = new SWN3(pathToSWN);
 

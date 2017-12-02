@@ -12,5 +12,6 @@ import java.util.ArrayList;
  * @author oshrat
  */
 public interface EntityExtractorInterface {
+
     public ArrayList<String> extract(String txt);
 }

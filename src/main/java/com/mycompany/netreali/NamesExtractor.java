@@ -21,14 +21,12 @@ import java.util.logging.Logger;
  */
 public class NamesExtractor implements EntityExtractorInterface {
 
-    private Connection conn;
     private ArrayList<String> names;
 
     public NamesExtractor() throws SQLException {
         Statement stmt = null;
 
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "zxasqw12");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "zxasqw12")) {
             // the mysql insert statement
             String query = "select name from first_names";
 
@@ -36,7 +34,7 @@ public class NamesExtractor implements EntityExtractorInterface {
             ResultSet rs = stmt.executeQuery(query);
             names = new ArrayList<>();
             while (rs.next()) {
-                names.add(rs.getString("name"));
+                names.add(rs.getString("name").toLowerCase());
             }
 
             conn.close();
@@ -56,9 +54,9 @@ public class NamesExtractor implements EntityExtractorInterface {
 
         Iterator<String> itr = names.iterator();
         while (itr.hasNext()) {
-            String settlement = itr.next();
-            if (lowerTxt.contains(settlement.toLowerCase())) {
-                extracted.add(settlement.toLowerCase());
+            String name = itr.next();
+            if (lowerTxt.contains(name)) {
+                extracted.add(name);
             }
         }
 
