@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class ExtractionHandler {
 
-    public Map<String, ArrayList<String>> extract(String text) { 
+    public static Map<String, ArrayList<String>> extract(String text) { 
         Map<String, ArrayList<String>> extracted = new HashMap<>();
 
         try {

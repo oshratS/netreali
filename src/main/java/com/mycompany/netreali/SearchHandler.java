@@ -67,7 +67,7 @@ public class SearchHandler {
                     String transBody = TxtTranslator.translate(body);
                     
                     // extract meta text for the body of the search task                    
-                    Map<String, ArrayList<String>> searchTaskExtractedMeta = extractor.extract(transBody);
+                    Map<String, ArrayList<String>> searchTaskExtractedMeta = ExtractionHandler.extract(transBody);
 
                     // find similar articles (by term similarity)
                     System.out.println("    comparing articles...");
@@ -107,7 +107,12 @@ public class SearchHandler {
             // preparedStmt = conn.prepareStatement(query);
             // preparedStmt.execute();
             // System.out.println("truncated extracted_meta successfully");
-
+            
+            query = "TRUNCATE similar_articles;";
+            preparedStmt = conn.prepareStatement(query);
+            preparedStmt.execute();
+            System.out.println("truncated similar_articles successfully");
+            
             conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(netRealiGui.class.getName()).log(Level.SEVERE, null, ex);
