@@ -22,26 +22,13 @@ import java.util.Map;
  */
 public class ExtractionHandler {
 
-    public Map<String, ArrayList<String>> extract(String text, int articleId) {
-        String transText = null;
-        try {
-            // Translating the given text to english
-            transText = TxtTranslator.translateAndSave(text, articleId);
-            System.out.printf("Translation: %s%n", transText);
-        } catch (Exception ex) {
-            Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (transText == null || "".equals(transText.trim())) {
-            return null;
-        }
-        
+    public Map<String, ArrayList<String>> extract(String text) { 
         Map<String, ArrayList<String>> extracted = new HashMap<>();
 
         try {
             // Extracting settlements
             SettlementExtractor SettlExtractor = new SettlementExtractor();
-            ArrayList<String> settlExtracted = SettlExtractor.extract(transText);                     
+            ArrayList<String> settlExtracted = SettlExtractor.extract(text);                     
             System.out.printf("Places: %s%n", settlExtracted);
             
             extracted.put("settlements", settlExtracted);
@@ -52,7 +39,7 @@ public class ExtractionHandler {
         try {
             // Extracting names
             NamesExtractor NamesExtractor = new NamesExtractor();
-            ArrayList<String> namesExtracted = NamesExtractor.extract(transText);
+            ArrayList<String> namesExtracted = NamesExtractor.extract(text);
             System.out.printf("Names: %s%n", namesExtracted.toString());
 
             extracted.put("names", namesExtracted);
@@ -62,7 +49,7 @@ public class ExtractionHandler {
 
         // Extracting datetimes
         DateTimeExtractor dateExtractor = new DateTimeExtractor();
-        ArrayList<String> datesExtracted = dateExtractor.extract(transText);
+        ArrayList<String> datesExtracted = dateExtractor.extract(text);
         extracted.put("dates", datesExtracted);
         System.out.printf("Dates: %s%n", datesExtracted.toString());
 
@@ -70,8 +57,23 @@ public class ExtractionHandler {
     }
 
     public void extractAndSave(String text, int articleId) {
-        Map<String, ArrayList<String>> extracted = extract(text, articleId);
+        String transText = null;
+        try {
+            // Translating the given text to english
+            transText = TxtTranslator.translateAndSave(text, articleId);
+            System.out.printf("Translation: %s%n", transText);
+        } catch (Exception ex) {
+            Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (transText == null || "".equals(transText.trim())) {
+            Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, "Couldn't translate the text, ending extraction");
+            return;
+        }
+        
+        Map<String, ArrayList<String>> extracted = extract(text);
         if (extracted == null) {
+            Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, "Couldn't extract meta for the text, ending extraction");
             return;
         }
 
@@ -130,9 +132,6 @@ public class ExtractionHandler {
                 extractedRs = extractedPreparedStmt.executeQuery();
                 if (!extractedRs.next()) {                
                     extractAndSave(rs.getString("body"), rs.getInt("id"));
-                } else {
-                    String transText = TxtTranslator.translateAndSave(rs.getString("body"), rs.getInt("id"));
-                    System.out.printf("Translation: %s%n", transText);
                 }               
             }
             

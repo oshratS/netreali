@@ -51,14 +51,14 @@ public class ArticleCompareHandler {
         return (settlementsScore + datetimesScore + namesScore) / 3;
     }
 
-    public void compareArticles(Map<String, ArrayList<String>> target, int targetArticleId) {
+    public void compareArticles(Map<String, ArrayList<String>> target, int searchTaskId) {
         System.out.println("target: " + target.toString());
         
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "zxasqw12")) {
             String query = "SELECT * from extracted_meta";
             PreparedStatement preparedStmt = conn.prepareStatement(query);
 
-            String insert = "INSERT INTO similar_articles (extracted_meta_id, article_id, target_article_id, similarity_score) VALUES(?, ?, ?, ?);";
+            String insert = "INSERT INTO similar_articles (extracted_meta_id, article_id, search_task_id, similarity_score) VALUES(?, ?, ?, ?);";
             PreparedStatement insertPreparedStmt = conn.prepareCall(insert);
 
             ResultSet rs = preparedStmt.executeQuery();
@@ -81,7 +81,7 @@ public class ArticleCompareHandler {
                     System.out.println("sScore: " + similarityScore + ". extracted: " + extracted.toString());
                     insertPreparedStmt.setInt(1, rs.getInt("id"));
                     insertPreparedStmt.setInt(2, rs.getInt("article_id"));
-                    insertPreparedStmt.setInt(3, targetArticleId);
+                    insertPreparedStmt.setInt(3, searchTaskId);
                     insertPreparedStmt.setDouble(4, similarityScore);
 
                     insertPreparedStmt.execute();
