@@ -40,7 +40,7 @@ public class ArticleCompareHandler {
             }
         }       
         
-        return foundCount / target.size();
+        return (double)foundCount / target.size();
     }
 
     public double calcSimilarity(Map<String, ArrayList<String>> target, Map<String, ArrayList<String>> source) {
