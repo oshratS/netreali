@@ -11,9 +11,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -50,15 +52,15 @@ public class SettlementExtractor implements EntityExtractorInterface {
     @Override
     public ArrayList<String> extract(String txt) {
         ArrayList<String> extracted = new ArrayList<>();
-        String lowerTxt = txt.toLowerCase();
+        String lowerTxt = txt.toLowerCase();       
+        
+        String patternString = "\\b(" + StringUtils.join(settlements, "|") + ")\\b";
+        Pattern pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(lowerTxt);
 
-        Iterator<String> itr = settlements.iterator();
-        while (itr.hasNext()) {
-            String settlement = itr.next();
-            if (lowerTxt.contains(settlement)) {
-                extracted.add(settlement);
-            }
-        }
+        while (matcher.find()) {
+            extracted.add(matcher.group(1).toLowerCase().trim());
+        }               
 
         return extracted;
     }

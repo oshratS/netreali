@@ -12,9 +12,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -28,8 +30,9 @@ public class ExtractionHandler {
         try {
             // Extracting settlements
             SettlementExtractor SettlExtractor = new SettlementExtractor();
-            ArrayList<String> settlExtracted = SettlExtractor.extract(text);                     
-            System.out.printf("Places: %s%n", settlExtracted);
+            ArrayList<String> settlExtracted = SettlExtractor.extract(text);          
+            dedupe(settlExtracted);
+            System.out.printf("Places: %s%n", settlExtracted);                                                
             
             extracted.put("settlements", settlExtracted);
         } catch (SQLException ex) {
@@ -40,8 +43,9 @@ public class ExtractionHandler {
             // Extracting names
             NamesExtractor NamesExtractor = new NamesExtractor();
             ArrayList<String> namesExtracted = NamesExtractor.extract(text);
-            System.out.printf("Names: %s%n", namesExtracted.toString());
-
+            dedupe(namesExtracted);
+            System.out.printf("Names: %s%n", namesExtracted.toString());           
+            
             extracted.put("names", namesExtracted);
         } catch (SQLException ex) {
             Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,7 +54,8 @@ public class ExtractionHandler {
         // Extracting datetimes
         DateTimeExtractor dateExtractor = new DateTimeExtractor();
         ArrayList<String> datesExtracted = dateExtractor.extract(text);
-        extracted.put("dates", datesExtracted);
+        dedupe(datesExtracted);
+        extracted.put("dates", datesExtracted);        
         System.out.printf("Dates: %s%n", datesExtracted.toString());
 
         return extracted;
@@ -139,5 +144,18 @@ public class ExtractionHandler {
         } catch (SQLException ex) {
             Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    // convert ArrayList to Set and back to remove duplicates
+    private static void dedupe(ArrayList<String> list) {
+        Set<String> hs = new HashSet<>();
+        hs.addAll(list);
+        list.clear();
+        list.addAll(hs);              
+    }
+    
+    public static void main(String args[]) {
+        String text = " The Ministerial Committee on Legislation approved Sunday the memorandum of the law submitted by Defense Minister Avigdor Lieberman to cancel the restriction on the realization of the monetary deposit for discharged soldiers. According to the new plan of the Ministry of Defense, every soldier will have the option of withdrawing the money for any purpose without restriction. This is contrary to the current law, according to which a discharged soldier can withdraw the deposit in the first five years after his release, for only five purposes: study, business, apartment purchase, marriage and driving lessons. The Finance Ministry initially objected to lifting the restrictions on the realization of the deposit, and explained its objection to the fact that the bill does not contain a new cost, but a change of NIS 4 billion is very significant in the state budget and a budget source must be found for the coming years. Before the ministerial committee discussion, Lieberman attacked the Finance Ministry&#39;s position and said, &quot;I was surprised that this is not an additional budget, but rather money that belongs entirely to the soldiers, by law and with that it is impossible to play.&quot; Hopes that the finance minister will instruct his ministry officials to support the bill in the ministerial committee on legislation. &quot";
+        Map<String, ArrayList<String>> ext = ExtractionHandler.extract(text);                
     }
 }

@@ -11,9 +11,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -51,17 +53,17 @@ public class NamesExtractor implements EntityExtractorInterface {
     public ArrayList<String> extract(String txt) {
         ArrayList<String> extracted = new ArrayList<>();
         String lowerTxt = txt.toLowerCase();
+       
+        String patternString = "\\b(" + StringUtils.join(names, "|") + ")\\b";
+        Pattern pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+        Matcher matcher = pattern.matcher(lowerTxt);
 
-        Iterator<String> itr = names.iterator();
-        while (itr.hasNext()) {
-            String name = itr.next();
-            if (lowerTxt.contains(name)) {
-                extracted.add(name);
-            }
+        while (matcher.find()) {
+            extracted.add(matcher.group(1).toLowerCase().trim());
         }
-
+        
         return extracted;
-    }
+    }       
 
     public static void main(String args[]) {
         try {
