@@ -71,10 +71,15 @@ public class SearchHandler {
                     // find similar articles (by term similarity)
                     System.out.println("    comparing articles...");
                     ArticleCompareHandler articleComparer = new ArticleCompareHandler();
-                    articleComparer.compareArticles(transBody, searchTaskId);
+                    // articleComparer.compareArticles(transBody, searchTaskId);
                     System.out.println("compared articles successfully");
 
                     // perform sentiment analysis
+                    System.out.println("    performing sentiment analysis on similar articles...");
+                    SentimentAnalysisHandler sentimentAnalyser = new SentimentAnalysisHandler();
+                    sentimentAnalyser.AnalyseSimilarArticles(searchTaskId);
+                    System.out.println("performed sentiment analysis successfully");
+                    
                     // present results based on analysis                     
                 } else {
                     throw new SQLException("Creating search task failed, no ID obtained.");
@@ -83,7 +88,7 @@ public class SearchHandler {
 
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(netRealiGui.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UINetReali.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -112,14 +117,19 @@ public class SearchHandler {
 //            preparedStmt.execute();
 //            System.out.println("truncated extracted_meta successfully");
             
-            query = "TRUNCATE similar_articles;";
+//            query = "TRUNCATE similar_articles;";
+//            preparedStmt = conn.prepareStatement(query);
+//            preparedStmt.execute();
+//            System.out.println("truncated similar_articles successfully");
+            
+            query = "TRUNCATE sentiment_analysis_score;";
             preparedStmt = conn.prepareStatement(query);
             preparedStmt.execute();
-            System.out.println("truncated similar_articles successfully");
+            System.out.println("truncated sentiment_analysis_score successfully");
             
             conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(netRealiGui.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UINetReali.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
