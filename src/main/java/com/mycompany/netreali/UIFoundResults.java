@@ -5,6 +5,7 @@
  */
 package com.mycompany.netreali;
 
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 import javax.swing.JTextArea;
 import org.jdesktop.swingx.JXHyperlink;
@@ -31,7 +32,112 @@ public class UIFoundResults extends javax.swing.JFrame {
     public UIFoundResults() {
         initComponents();                
     }
+    
+    public void calculateResults() {        
+        Class<?> c = this.getClass();
+        Field f;
 
+        // fetch the data of similar articles
+        // body, date, source, similarity_score
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "zxasqw12")) {
+            String query = "SELECT art.id, source, MIN(ABS(score)) as score, title, body, date, url "
+                    + "FROM sentiment_analysis_score AS sas "
+                    + "LEFT JOIN articles AS art ON sas.article_id = art.id "
+                    + "GROUP BY source "
+                    + "ORDER BY ABS(score) ASC";
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+            int iterationCount = 0;
+            String[] scoreTexts = new String[3];
+            scoreTexts[0] = "MOST OBJECTIVE";
+            scoreTexts[1] = "MID OBJECTIVE";
+            scoreTexts[2] = "LEAST OBJECTIVE";                    
+            ResultSet rs = preparedStmt.executeQuery();                                                 
+            while (rs.next()) {                        
+                String source = rs.getString("source");
+
+                // Handle title                        
+                f = c.getDeclaredField(source + "Title");
+                f.setAccessible(true);                                                
+                JLabel title = (JLabel)f.get(this);
+                title.setText(rs.getString("title"));     
+                title.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+                f.set(this, title);
+
+                // Handle date                        
+                f = c.getDeclaredField(source + "Date");
+                f.setAccessible(true);                                                
+                JLabel date = (JLabel)f.get(this);
+                date.setText(rs.getString("date"));                        
+                f.set(this, date);
+
+                // Handle score                                                
+                f = c.getDeclaredField(source + "Score");
+                f.setAccessible(true);
+                JLabel score = (JLabel)f.get(this);
+                // score.setText(new DecimalFormat("##.##").format(rs.getDouble("score")));                        
+                this.setScoreTextAndColor(scoreTexts[iterationCount], score);
+                f.set(this, score);
+
+                // Handle link  
+                URI uri = new URI(rs.getString("url"));                        
+                f = c.getDeclaredField(source + "Link");
+                f.setAccessible(true);
+                JXHyperlink link = (JXHyperlink)f.get(this);
+                link.setURI(uri);
+                link.setText("open article");
+                f.set(this, link);
+
+                // Handle body                      
+                String[] words = rs.getString("body").split("\\s");
+                String htmlBody = "";
+                int spaceCount = 0;
+                for(String word : words) {
+                    spaceCount++;
+
+                    if (spaceCount % 14 == 0) {
+                        htmlBody += "\n" + word;
+                    } else {
+                        htmlBody += " " + word;
+                    }
+                }
+
+                f = c.getDeclaredField(source + "Body");
+                f.setAccessible(true);
+                JTextArea body = (JTextArea)f.get(this);
+                body.setText(htmlBody);
+                body.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+                body.setCaretPosition(0);
+                f.set(this, body);
+
+                iterationCount++;
+            }
+
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (URISyntaxException | NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            Logger.getLogger(UIFoundResults.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
+
+     public void setScoreTextAndColor(String text, JLabel label) {
+        label.setText(text); 
+        switch(text) {
+            case "MOST OBJECTIVE":
+                label.setForeground(new Color(0, 128, 0));
+                break;
+            case "LEAST OBJECTIVE":
+                label.setForeground(new Color(204, 0, 0));
+                break;
+            default:
+                label.setForeground(new Color(255, 69, 0));
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -386,97 +492,13 @@ public class UIFoundResults extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(UIFoundResults.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-
+        //</editor-fold>    
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                UIFoundResults gui = new UIFoundResults();
-                gui.setLocationRelativeTo(null);
-                Class<?> c = gui.getClass();
-                Field f;
-                
-                // fetch the data of similar articles
-                // body, date, source, similarity_score
-                try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "zxasqw12")) {
-                    String query = "SELECT art.id, source, MIN(ABS(score)) as score, title, body, date, url "
-                            + "FROM sentiment_analysis_score AS sas "
-                            + "LEFT JOIN articles AS art ON sas.article_id = art.id "
-                            + "GROUP BY score "
-                            + "ORDER BY ABS(score) ASC";
-                    PreparedStatement preparedStmt = conn.prepareStatement(query);
-                    
-                    int iterationCount = 0;
-                    String[] scoreTexts = {"MOST OBJECTIVE", "MEDIUM OBJECTIVE", "LEAST OBJECTIVE"};
-                    ResultSet rs = preparedStmt.executeQuery();                                                 
-                    while (rs.next()) {                        
-                        String source = rs.getString("source");
-                        
-                        // Handle title                        
-                        f = c.getDeclaredField(source + "Title");
-                        f.setAccessible(true);                                                
-                        JLabel title = (JLabel)f.get(gui);
-                        title.setText(rs.getString("title"));     
-                        title.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-                        f.set(gui, title);
-                        
-                        // Handle date                        
-                        f = c.getDeclaredField(source + "Date");
-                        f.setAccessible(true);                                                
-                        JLabel date = (JLabel)f.get(gui);
-                        date.setText(rs.getString("date"));                        
-                        f.set(gui, date);
-                        
-                        // Handle score                                                
-                        f = c.getDeclaredField(source + "Score");
-                        f.setAccessible(true);
-                        JLabel score = (JLabel)f.get(gui);
-                        // score.setText(new DecimalFormat("##.##").format(rs.getDouble("score")));
-                        score.setText(scoreTexts[iterationCount]);
-                        f.set(gui, score);
-                        
-                        // Handle link  
-                        URI uri = new URI(rs.getString("url"));                        
-                        f = c.getDeclaredField(source + "Link");
-                        f.setAccessible(true);
-                        JXHyperlink link = (JXHyperlink)f.get(gui);
-                        link.setURI(uri);
-                        link.setText("open article");
-                        f.set(gui, link);
-                        
-                        // Handle body                      
-                        String[] words = rs.getString("body").split("\\s");
-                        String htmlBody = "";
-                        int spaceCount = 0;
-                        for(String word : words) {
-                            spaceCount++;
-                            
-                            if (spaceCount % 14 == 0) {
-                                htmlBody += "\n" + word;
-                            } else {
-                                htmlBody += " " + word;
-                            }
-                        }
-                                             
-                        f = c.getDeclaredField(source + "Body");
-                        f.setAccessible(true);
-                        JTextArea body = (JTextArea)f.get(gui);
-                        body.setText(htmlBody);
-                        body.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-                        body.setCaretPosition(0);
-                        f.set(gui, body);
-                        
-                        iterationCount++;
-                    }
-
-                    conn.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (URISyntaxException | NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-                    Logger.getLogger(UIFoundResults.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                gui.setVisible(true);
+                UIFoundResults gui = new UIFoundResults();                
+                gui.calculateResults();
             }
         });
     }

@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class ArticleCompareHandler {
 
-    private final double SIMILAR_SCORE = 0.9;
+    private final double SIMILAR_SCORE = 0.8;
 
     public double compare(ArrayList<String> target, ArrayList<String> source) {
         if (target.isEmpty()) {
@@ -84,7 +84,8 @@ public class ArticleCompareHandler {
                             .trim();
                 }                
                 
-                double similarityScore = consineTextSimilarity(targetBody, articleBody);                
+                double similarityScore = consineTextSimilarity(targetBody, articleBody);    
+                System.out.println("similarityScore: " + similarityScore);
                 if (similarityScore >= SIMILAR_SCORE) {
                     System.out.println("sScore: " + similarityScore);
                     insertPreparedStmt.setInt(1, 1);
