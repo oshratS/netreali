@@ -68,8 +68,8 @@ public class MaarivScraper {
     public void save(Map<String, String> scraped, int searchTaskId) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "zxasqw12")) {
             // the mysql insert statement
-            String query = "INSERT INTO articles (search_task_id, title, body, date, url)"
-                    + " VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO articles (search_task_id, title, body, date, url, source)"
+                    + " VALUES (?, ?, ?, ?, ?, ?)";
 
             // create the mysql insert preparedstatement
             PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -78,6 +78,7 @@ public class MaarivScraper {
             preparedStmt.setString(3, scraped.get("body"));
             preparedStmt.setString(4, scraped.get("date"));
             preparedStmt.setString(5, scraped.get("url"));
+            preparedStmt.setString(6, "maariv");
 
             // execute the preparedstatement
             preparedStmt.execute();

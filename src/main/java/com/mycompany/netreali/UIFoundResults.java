@@ -5,9 +5,19 @@
  */
 package com.mycompany.netreali;
 
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.ComponentOrientation;
+import javax.swing.JTextArea;
+import org.jdesktop.swingx.JXHyperlink;
+import java.lang.reflect.Field;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 
 /**
@@ -15,12 +25,11 @@ import javax.swing.JLabel;
  * @author oshrat
  */
 public class UIFoundResults extends javax.swing.JFrame {
-
-    /**
+     /**
      * Creates new form FoundResultsGui
      */
     public UIFoundResults() {
-        initComponents();
+        initComponents();                
     }
 
     /**
@@ -31,330 +40,325 @@ public class UIFoundResults extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        MainPanel = new javax.swing.JPanel();
-        ResultsLabel = new javax.swing.JLabel();
-        jTextArea3 = new javax.swing.JTextArea();
-        HaretzPanel = new javax.swing.JPanel();
-        HArticleT = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jTextPane3 = new javax.swing.JTextPane();
-        HLabel5 = new javax.swing.JLabel();
-        HLabel6 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
-        YnetPanel = new javax.swing.JPanel();
-        ynetPanel1 = new javax.swing.JPanel();
-        MArticleT1 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        jTextPane4 = new javax.swing.JTextPane();
-        YLabel7 = new javax.swing.JLabel();
-        YLabel8 = new javax.swing.JLabel();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        jTextArea6 = new javax.swing.JTextArea();
-        ynetPanel2 = new javax.swing.JPanel();
-        MArticleT2 = new javax.swing.JLabel();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        jTextPane5 = new javax.swing.JTextPane();
-        YLabel9 = new javax.swing.JLabel();
-        YLabel10 = new javax.swing.JLabel();
-        jScrollPane11 = new javax.swing.JScrollPane();
-        jTextArea7 = new javax.swing.JTextArea();
+        title = new javax.swing.JLabel();
+        description = new javax.swing.JLabel();
+        ynetPanel = new javax.swing.JPanel();
+        ynetTitle = new javax.swing.JLabel();
+        ynetDate = new javax.swing.JLabel();
+        ynetScore = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ynetBody = new javax.swing.JTextArea();
+        ynetLink = new org.jdesktop.swingx.JXHyperlink();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        maarivPanel = new javax.swing.JPanel();
+        maarivTitle = new javax.swing.JLabel();
+        maarivDate = new javax.swing.JLabel();
+        maarivScore = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        maarivBody = new javax.swing.JTextArea();
+        maarivLink = new org.jdesktop.swingx.JXHyperlink();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        haaretzPanel = new javax.swing.JPanel();
+        haaretzTitle = new javax.swing.JLabel();
+        haaretzDate = new javax.swing.JLabel();
+        haaretzScore = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        haaretzBody = new javax.swing.JTextArea();
+        haaretzLink = new org.jdesktop.swingx.JXHyperlink();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NetReali");
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(800, 800));
         setName("NetReali"); // NOI18N
-
-        MainPanel.setBackground(new java.awt.Color(255, 255, 255));
-        MainPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        MainPanel.setForeground(new java.awt.Color(255, 255, 255));
-        MainPanel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-
-        ResultsLabel.setBackground(new java.awt.Color(255, 255, 255));
-        ResultsLabel.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        ResultsLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ResultsLabel.setText("        Results");
-        ResultsLabel.setAlignmentY(0.0F);
-        ResultsLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        ResultsLabel.setPreferredSize(new java.awt.Dimension(211, 96));
-
-        jTextArea3.setColumns(20);
-        jTextArea3.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        jTextArea3.setRows(5);
-        jTextArea3.setText("                               The process finished successfully.  \n                               We`ve founf the next similar articles:");
-        jTextArea3.setAutoscrolls(false);
-        jTextArea3.setBorder(null);
-        jTextArea3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
-        MainPanel.setLayout(MainPanelLayout);
-        MainPanelLayout.setHorizontalGroup(
-            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainPanelLayout.createSequentialGroup()
-                .addGap(190, 190, 190)
-                .addComponent(ResultsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(MainPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextArea3)
-                .addContainerGap())
-        );
-        MainPanelLayout.setVerticalGroup(
-            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ResultsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextArea3)
-                .addContainerGap())
-        );
-
-        ResultsLabel.getAccessibleContext().setAccessibleName("ResultsLabel");
-
-        HArticleT.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        HArticleT.setText("Article Title");
-
-        jTextPane3.setEditable(false);
-        jTextPane3.setBackground(new java.awt.Color(255, 0, 0));
-        jTextPane3.setBorder(null);
-        jTextPane3.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jTextPane3.setText("42% objectivity");
-        jScrollPane6.setViewportView(jTextPane3);
-
-        HLabel5.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        HLabel5.setText("23/11/2017 18:55");
-
-        HLabel6.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        HLabel6.setText("Haaretz");
-
-        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane4.setFocusable(false);
-        jScrollPane4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jScrollPane4.setRequestFocusEnabled(false);
-
-        jTextArea4.setEditable(false);
-        jTextArea4.setColumns(20);
-        jTextArea4.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        jTextArea4.setRows(5);
-        jTextArea4.setText("Lorem Ipsum is simply dummy text of the printing and \ntypesetting industry.  Lorem Ipsum has been the \nindustry's standard dummy text ever since the 1500s, \nwhen an unknown printer took a galley of type and \nscrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into");
-        jTextArea4.setAutoscrolls(false);
-        jTextArea4.setFocusable(false);
-        jScrollPane4.setViewportView(jTextArea4);
-
-        javax.swing.GroupLayout HaretzPanelLayout = new javax.swing.GroupLayout(HaretzPanel);
-        HaretzPanel.setLayout(HaretzPanelLayout);
-        HaretzPanelLayout.setHorizontalGroup(
-            HaretzPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HaretzPanelLayout.createSequentialGroup()
-                .addGroup(HaretzPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(HArticleT, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(HaretzPanelLayout.createSequentialGroup()
-                        .addComponent(HLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(HLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(438, Short.MAX_VALUE))
-            .addGroup(HaretzPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        HaretzPanelLayout.setVerticalGroup(
-            HaretzPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HaretzPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(HArticleT, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(HaretzPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane6)
-                    .addComponent(jScrollPane4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(HaretzPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(HLabel5)
-                    .addComponent(HLabel6))
-                .addContainerGap())
-        );
-
-        MArticleT1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        MArticleT1.setText("Article Title");
-
-        jTextPane4.setEditable(false);
-        jTextPane4.setBackground(new java.awt.Color(255, 255, 0));
-        jTextPane4.setBorder(null);
-        jTextPane4.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jTextPane4.setText("55% objectivity");
-        jScrollPane8.setViewportView(jTextPane4);
-
-        YLabel7.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        YLabel7.setText("23/11/2017 18:58");
-
-        YLabel8.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        YLabel8.setText("Ynet");
-
-        jScrollPane9.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane9.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane9.setFocusable(false);
-        jScrollPane9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jScrollPane9.setRequestFocusEnabled(false);
-
-        jTextArea6.setEditable(false);
-        jTextArea6.setColumns(20);
-        jTextArea6.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        jTextArea6.setRows(5);
-        jTextArea6.setText("Lorem Ipsum is simply dummy text of the printing and \ntypesetting industry.  Lorem Ipsum has been the \nindustry's standard dummy text ever since the 1500s, \nwhen an unknown printer took a galley of type and \nscrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into");
-        jTextArea6.setAutoscrolls(false);
-        jTextArea6.setFocusable(false);
-        jScrollPane9.setViewportView(jTextArea6);
-
-        javax.swing.GroupLayout ynetPanel1Layout = new javax.swing.GroupLayout(ynetPanel1);
-        ynetPanel1.setLayout(ynetPanel1Layout);
-        ynetPanel1Layout.setHorizontalGroup(
-            ynetPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ynetPanel1Layout.createSequentialGroup()
-                .addComponent(MArticleT1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(509, Short.MAX_VALUE))
-            .addGroup(ynetPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(ynetPanel1Layout.createSequentialGroup()
-                .addComponent(YLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(YLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 438, Short.MAX_VALUE))
-        );
-        ynetPanel1Layout.setVerticalGroup(
-            ynetPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ynetPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(MArticleT1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(ynetPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(ynetPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(YLabel7)
-                    .addComponent(YLabel8))
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout YnetPanelLayout = new javax.swing.GroupLayout(YnetPanel);
-        YnetPanel.setLayout(YnetPanelLayout);
-        YnetPanelLayout.setHorizontalGroup(
-            YnetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
-            .addGroup(YnetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(YnetPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(ynetPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        YnetPanelLayout.setVerticalGroup(
-            YnetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 231, Short.MAX_VALUE)
-            .addGroup(YnetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(YnetPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(ynetPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-
-        MArticleT2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        MArticleT2.setText("Article Title");
-
-        jTextPane5.setEditable(false);
-        jTextPane5.setBackground(new java.awt.Color(102, 255, 51));
-        jTextPane5.setBorder(null);
-        jTextPane5.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jTextPane5.setText("87% objectivity");
-        jScrollPane10.setViewportView(jTextPane5);
-
-        YLabel9.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        YLabel9.setText("23/11/2017 18:41");
-
-        YLabel10.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
-        YLabel10.setText("Maariv");
-
-        jScrollPane11.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane11.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane11.setFocusable(false);
-        jScrollPane11.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jScrollPane11.setRequestFocusEnabled(false);
-
-        jTextArea7.setEditable(false);
-        jTextArea7.setColumns(20);
-        jTextArea7.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        jTextArea7.setRows(5);
-        jTextArea7.setText("Lorem Ipsum is simply dummy text of the printing and \ntypesetting industry.  Lorem Ipsum has been the \nindustry's standard dummy text ever since the 1500s, \nwhen an unknown printer took a galley of type and \nscrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into");
-        jTextArea7.setAutoscrolls(false);
-        jTextArea7.setFocusable(false);
-        jScrollPane11.setViewportView(jTextArea7);
-
-        javax.swing.GroupLayout ynetPanel2Layout = new javax.swing.GroupLayout(ynetPanel2);
-        ynetPanel2.setLayout(ynetPanel2Layout);
-        ynetPanel2Layout.setHorizontalGroup(
-            ynetPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ynetPanel2Layout.createSequentialGroup()
-                .addGroup(ynetPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MArticleT2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(ynetPanel2Layout.createSequentialGroup()
-                        .addComponent(YLabel9)
-                        .addGap(18, 18, 18)
-                        .addComponent(YLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(ynetPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        ynetPanel2Layout.setVerticalGroup(
-            ynetPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ynetPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(MArticleT2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(ynetPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane10)
-                    .addComponent(jScrollPane11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ynetPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(YLabel9)
-                    .addComponent(YLabel10))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        setPreferredSize(new java.awt.Dimension(800, 500));
+        setSize(new java.awt.Dimension(400, 600));
+        java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
+        layout.columnWidths = new int[] {0, 5, 0};
+        layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(YnetPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(HaretzPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ynetPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ynetPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(YnetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(HaretzPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+
+        title.setFont(new java.awt.Font("Lucida Sans", 1, 24)); // NOI18N
+        title.setText("Analysis Results");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        getContentPane().add(title, gridBagConstraints);
+
+        description.setFont(new java.awt.Font("Lucida Sans", 0, 16)); // NOI18N
+        description.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        description.setText("<html><center>The analysis finished successfully<br />We've found some similar articles and calculated their objectivity</center></html>");
+        description.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        getContentPane().add(description, gridBagConstraints);
+
+        ynetPanel.setMinimumSize(new java.awt.Dimension(342, 200));
+        java.awt.GridBagLayout ynetPanelLayout = new java.awt.GridBagLayout();
+        ynetPanelLayout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        ynetPanelLayout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        ynetPanel.setLayout(ynetPanelLayout);
+
+        ynetTitle.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        ynetTitle.setText("title");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        ynetPanel.add(ynetTitle, gridBagConstraints);
+
+        ynetDate.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        ynetDate.setText("date");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
+        ynetPanel.add(ynetDate, gridBagConstraints);
+
+        ynetScore.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        ynetScore.setText("score");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 9;
+        ynetPanel.add(ynetScore, gridBagConstraints);
+
+        ynetBody.setEditable(false);
+        ynetBody.setColumns(40);
+        ynetBody.setRows(5);
+        jScrollPane1.setViewportView(ynetBody);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.gridheight = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        ynetPanel.add(jScrollPane1, gridBagConstraints);
+
+        ynetLink.setText("open article");
+        ynetLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ynetLinkActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        ynetPanel.add(ynetLink, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 25;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        ynetPanel.add(jSeparator1, gridBagConstraints);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ynet_logo_90.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 22;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        ynetPanel.add(jLabel2, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(24, 0, 24, 0);
+        getContentPane().add(ynetPanel, gridBagConstraints);
+
+        maarivPanel.setMinimumSize(new java.awt.Dimension(342, 200));
+        java.awt.GridBagLayout maarivPanelLayout = new java.awt.GridBagLayout();
+        maarivPanelLayout.columnWidths = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        maarivPanelLayout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
+        maarivPanel.setLayout(maarivPanelLayout);
+
+        maarivTitle.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        maarivTitle.setText("title");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        maarivPanel.add(maarivTitle, gridBagConstraints);
+
+        maarivDate.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        maarivDate.setText("date");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
+        maarivPanel.add(maarivDate, gridBagConstraints);
+
+        maarivScore.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        maarivScore.setText("score");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 9;
+        maarivPanel.add(maarivScore, gridBagConstraints);
+
+        maarivBody.setEditable(false);
+        maarivBody.setColumns(40);
+        maarivBody.setRows(5);
+        jScrollPane2.setViewportView(maarivBody);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.gridheight = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        maarivPanel.add(jScrollPane2, gridBagConstraints);
+
+        maarivLink.setText("open article");
+        maarivLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maarivLinkActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        maarivPanel.add(maarivLink, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 23;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        maarivPanel.add(jSeparator2, gridBagConstraints);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/maariv_logo_90.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 22;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        maarivPanel.add(jLabel1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(24, 0, 24, 0);
+        getContentPane().add(maarivPanel, gridBagConstraints);
+
+        haaretzPanel.setMinimumSize(new java.awt.Dimension(342, 200));
+        haaretzPanel.setLayout(new java.awt.GridBagLayout());
+
+        haaretzTitle.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        haaretzTitle.setText("title");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        haaretzPanel.add(haaretzTitle, gridBagConstraints);
+
+        haaretzDate.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        haaretzDate.setText("date");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
+        haaretzPanel.add(haaretzDate, gridBagConstraints);
+
+        haaretzScore.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        haaretzScore.setText("score");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridheight = 9;
+        haaretzPanel.add(haaretzScore, gridBagConstraints);
+
+        haaretzBody.setEditable(false);
+        haaretzBody.setColumns(40);
+        haaretzBody.setRows(5);
+        haaretzBody.setText("no similar article found from this source");
+        jScrollPane3.setViewportView(haaretzBody);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 19;
+        gridBagConstraints.gridheight = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        haaretzPanel.add(jScrollPane3, gridBagConstraints);
+
+        haaretzLink.setText("open article");
+        haaretzLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                haaretzLinkActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        haaretzPanel.add(haaretzLink, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 25;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        haaretzPanel.add(jSeparator3, gridBagConstraints);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/haaretz_logo_90.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 22;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 4);
+        haaretzPanel.add(jLabel3, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(24, 0, 24, 0);
+        getContentPane().add(haaretzPanel, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ynetLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ynetLinkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ynetLinkActionPerformed
+
+    private void maarivLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maarivLinkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_maarivLinkActionPerformed
+
+    private void haaretzLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_haaretzLinkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_haaretzLinkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,8 +371,8 @@ public class UIFoundResults extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                if ("GTKLookAndFeel".equals(info.getName())) {                    
+                    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
                     break;
                 }
             }
@@ -388,39 +392,124 @@ public class UIFoundResults extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 UIFoundResults gui = new UIFoundResults();
+                gui.setLocationRelativeTo(null);
+                Class<?> c = gui.getClass();
+                Field f;
+                
+                // fetch the data of similar articles
+                // body, date, source, similarity_score
+                try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "zxasqw12")) {
+                    String query = "SELECT art.id, source, MIN(ABS(score)) as score, title, body, date, url "
+                            + "FROM sentiment_analysis_score AS sas "
+                            + "LEFT JOIN articles AS art ON sas.article_id = art.id "
+                            + "GROUP BY score "
+                            + "ORDER BY ABS(score) ASC";
+                    PreparedStatement preparedStmt = conn.prepareStatement(query);
+                    
+                    int iterationCount = 0;
+                    String[] scoreTexts = {"MOST OBJECTIVE", "MEDIUM OBJECTIVE", "LEAST OBJECTIVE"};
+                    ResultSet rs = preparedStmt.executeQuery();                                                 
+                    while (rs.next()) {                        
+                        String source = rs.getString("source");
+                        
+                        // Handle title                        
+                        f = c.getDeclaredField(source + "Title");
+                        f.setAccessible(true);                                                
+                        JLabel title = (JLabel)f.get(gui);
+                        title.setText(rs.getString("title"));     
+                        title.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+                        f.set(gui, title);
+                        
+                        // Handle date                        
+                        f = c.getDeclaredField(source + "Date");
+                        f.setAccessible(true);                                                
+                        JLabel date = (JLabel)f.get(gui);
+                        date.setText(rs.getString("date"));                        
+                        f.set(gui, date);
+                        
+                        // Handle score                                                
+                        f = c.getDeclaredField(source + "Score");
+                        f.setAccessible(true);
+                        JLabel score = (JLabel)f.get(gui);
+                        // score.setText(new DecimalFormat("##.##").format(rs.getDouble("score")));
+                        score.setText(scoreTexts[iterationCount]);
+                        f.set(gui, score);
+                        
+                        // Handle link  
+                        URI uri = new URI(rs.getString("url"));                        
+                        f = c.getDeclaredField(source + "Link");
+                        f.setAccessible(true);
+                        JXHyperlink link = (JXHyperlink)f.get(gui);
+                        link.setURI(uri);
+                        link.setText("open article");
+                        f.set(gui, link);
+                        
+                        // Handle body                      
+                        String[] words = rs.getString("body").split("\\s");
+                        String htmlBody = "";
+                        int spaceCount = 0;
+                        for(String word : words) {
+                            spaceCount++;
+                            
+                            if (spaceCount % 14 == 0) {
+                                htmlBody += "\n" + word;
+                            } else {
+                                htmlBody += " " + word;
+                            }
+                        }
+                                             
+                        f = c.getDeclaredField(source + "Body");
+                        f.setAccessible(true);
+                        JTextArea body = (JTextArea)f.get(gui);
+                        body.setText(htmlBody);
+                        body.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+                        body.setCaretPosition(0);
+                        f.set(gui, body);
+                        
+                        iterationCount++;
+                    }
+
+                    conn.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (URISyntaxException | NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+                    Logger.getLogger(UIFoundResults.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 gui.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel HArticleT;
-    private javax.swing.JLabel HLabel5;
-    private javax.swing.JLabel HLabel6;
-    private javax.swing.JPanel HaretzPanel;
-    private javax.swing.JLabel MArticleT1;
-    private javax.swing.JLabel MArticleT2;
-    private javax.swing.JPanel MainPanel;
-    private javax.swing.JLabel ResultsLabel;
-    private javax.swing.JLabel YLabel10;
-    private javax.swing.JLabel YLabel7;
-    private javax.swing.JLabel YLabel8;
-    private javax.swing.JLabel YLabel9;
-    private javax.swing.JPanel YnetPanel;
-    private javax.swing.JScrollPane jScrollPane10;
-    private javax.swing.JScrollPane jScrollPane11;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextArea jTextArea6;
-    private javax.swing.JTextArea jTextArea7;
-    private javax.swing.JTextPane jTextPane3;
-    private javax.swing.JTextPane jTextPane4;
-    private javax.swing.JTextPane jTextPane5;
-    private javax.swing.JPanel ynetPanel1;
-    private javax.swing.JPanel ynetPanel2;
+    private javax.swing.JLabel description;
+    private javax.swing.JTextArea haaretzBody;
+    private javax.swing.JLabel haaretzDate;
+    private org.jdesktop.swingx.JXHyperlink haaretzLink;
+    private javax.swing.JPanel haaretzPanel;
+    private javax.swing.JLabel haaretzScore;
+    private javax.swing.JLabel haaretzTitle;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTextArea maarivBody;
+    private javax.swing.JLabel maarivDate;
+    private org.jdesktop.swingx.JXHyperlink maarivLink;
+    private javax.swing.JPanel maarivPanel;
+    private javax.swing.JLabel maarivScore;
+    private javax.swing.JLabel maarivTitle;
+    private javax.swing.JLabel title;
+    private javax.swing.JTextArea ynetBody;
+    private javax.swing.JLabel ynetDate;
+    private org.jdesktop.swingx.JXHyperlink ynetLink;
+    private javax.swing.JPanel ynetPanel;
+    private javax.swing.JLabel ynetScore;
+    private javax.swing.JLabel ynetTitle;
     // End of variables declaration//GEN-END:variables
 }

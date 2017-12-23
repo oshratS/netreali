@@ -1,14 +1,5 @@
 package com.mycompany.netreali;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -36,248 +27,114 @@ public class UINetReali extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        welcomePanel = new javax.swing.JPanel();
-        welcomeLabel = new javax.swing.JLabel();
-        instructionsLabel = new javax.swing.JLabel();
-        instructions2Label = new javax.swing.JLabel();
-        textfiledPanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
-        titleTextField = new javax.swing.JTextField();
-        bodyLabel = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        bodyTextField = new javax.swing.JTextArea();
-        dateLabel = new javax.swing.JLabel();
-        dateTextField = new javax.swing.JFormattedTextField();
-        buttensPanel = new javax.swing.JPanel();
-        clearButten = new javax.swing.JButton();
-        submitButton = new javax.swing.JButton();
+        descLabel = new javax.swing.JLabel();
+        articleTextLabel = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        articleTextArea = new javax.swing.JTextArea();
+        startButton = new javax.swing.JButton();
+        clearButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NetReali");
         setAlwaysOnTop(true);
-        setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setName("Netreali"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(500, 440));
         setResizable(false);
-
-        welcomePanel.setBackground(new java.awt.Color(255, 255, 255));
-        welcomePanel.setForeground(new java.awt.Color(255, 255, 255));
-        welcomePanel.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
-
-        welcomeLabel.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        welcomeLabel.setText("Welcome to NetReali");
-
-        instructionsLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        instructionsLabel.setForeground(new java.awt.Color(51, 51, 51));
-        instructionsLabel.setText("   Please enter your article and we`ll do our ");
-
-        instructions2Label.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        instructions2Label.setForeground(new java.awt.Color(51, 51, 51));
-        instructions2Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        instructions2Label.setText("    find alternative source with better objectivety");
-        instructions2Label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        javax.swing.GroupLayout welcomePanelLayout = new javax.swing.GroupLayout(welcomePanel);
-        welcomePanel.setLayout(welcomePanelLayout);
-        welcomePanelLayout.setHorizontalGroup(
-            welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(welcomePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(instructionsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(instructions2Label, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, welcomePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
-        );
-        welcomePanelLayout.setVerticalGroup(
-            welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(welcomePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(welcomeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(instructionsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(instructions2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        textfiledPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        titleLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(51, 51, 51));
-        titleLabel.setText("Title:");
-
-        titleTextField.setColumns(12);
-        titleTextField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        titleTextField.setForeground(new java.awt.Color(153, 153, 153));
-        titleTextField.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        titleTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                titleTextFieldActionPerformed(evt);
-            }
-        });
-
-        bodyLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        bodyLabel.setText("Body:");
-
-        bodyTextField.setColumns(20);
-        bodyTextField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        bodyTextField.setForeground(new java.awt.Color(153, 153, 153));
-        bodyTextField.setRows(5);
-        bodyTextField.setWrapStyleWord(true);
-        bodyTextField.setBorder(null);
-        jScrollPane2.setViewportView(bodyTextField);
-
-        dateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        dateLabel.setText("Date:");
-
-        dateTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yy"))));
-        dateTextField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        dateTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateTextFieldActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout textfiledPanelLayout = new javax.swing.GroupLayout(textfiledPanel);
-        textfiledPanel.setLayout(textfiledPanelLayout);
-        textfiledPanelLayout.setHorizontalGroup(
-            textfiledPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, textfiledPanelLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(textfiledPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bodyLabel)
-                    .addGroup(textfiledPanelLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(textfiledPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(textfiledPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        textfiledPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dateTextField, jScrollPane2, titleTextField});
-
-        textfiledPanelLayout.setVerticalGroup(
-            textfiledPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(textfiledPanelLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addGroup(textfiledPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(textfiledPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addGroup(textfiledPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(dateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(textfiledPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bodyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(textfiledPanelLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(8, 8, 8))
-        );
-
-        textfiledPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dateTextField, titleTextField});
-
-        buttensPanel.setBackground(new java.awt.Color(255, 255, 255));
-        buttensPanel.setForeground(new java.awt.Color(255, 255, 255));
-
-        clearButten.setBackground(new java.awt.Color(255, 204, 0));
-        clearButten.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        clearButten.setForeground(new java.awt.Color(255, 255, 255));
-        clearButten.setText("Clear");
-        clearButten.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearButtenActionPerformed(evt);
-            }
-        });
-
-        submitButton.setBackground(new java.awt.Color(0, 204, 51));
-        submitButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        submitButton.setForeground(new java.awt.Color(255, 255, 255));
-        submitButton.setText("Submit");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout buttensPanelLayout = new javax.swing.GroupLayout(buttensPanel);
-        buttensPanel.setLayout(buttensPanelLayout);
-        buttensPanelLayout.setHorizontalGroup(
-            buttensPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buttensPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(clearButten, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        buttensPanelLayout.setVerticalGroup(
-            buttensPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buttensPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(buttensPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(clearButten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(submitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 12, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        java.awt.GridBagLayout layout = new java.awt.GridBagLayout();
+        layout.columnWidths = new int[] {0, 5, 0, 5, 0};
+        layout.rowHeights = new int[] {0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0, 5, 0};
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(welcomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttensPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textfiledPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(welcomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(textfiledPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(buttensPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+
+        titleLabel.setFont(new java.awt.Font("Lucida Sans", 1, 24)); // NOI18N
+        titleLabel.setText("Welcome to NetReali");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        getContentPane().add(titleLabel, gridBagConstraints);
+
+        descLabel.setFont(new java.awt.Font("Lucida Sans", 0, 16)); // NOI18N
+        descLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        descLabel.setText("<html><center>Please enter your article and we'll do our best<br />to find alternative source with better objectivety</center></html>");
+        descLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        getContentPane().add(descLabel, gridBagConstraints);
+
+        articleTextLabel.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        articleTextLabel.setLabelFor(articleTextArea);
+        articleTextLabel.setText("Article Text:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        getContentPane().add(articleTextLabel, gridBagConstraints);
+
+        articleTextArea.setColumns(20);
+        articleTextArea.setFont(new java.awt.Font("Lucida Sans", 0, 10)); // NOI18N
+        articleTextArea.setRows(15);
+        jScrollPane3.setViewportView(articleTextArea);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridheight = 17;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        getContentPane().add(jScrollPane3, gridBagConstraints);
+
+        startButton.setBackground(new java.awt.Color(0, 153, 0));
+        startButton.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        startButton.setForeground(new java.awt.Color(255, 255, 255));
+        startButton.setText("start analysis");
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 26;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        getContentPane().add(startButton, gridBagConstraints);
+
+        clearButton.setBackground(new java.awt.Color(204, 0, 51));
+        clearButton.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        clearButton.setForeground(new java.awt.Color(255, 255, 255));
+        clearButton.setText("clear");
+        clearButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clearButtonMouseClicked(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 26;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        getContentPane().add(clearButton, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void titleTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleTextFieldActionPerformed
-        titleTextField.setToolTipText("Enter the title");
-    }//GEN-LAST:event_titleTextFieldActionPerformed
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        String text = this.articleTextArea.getText();
+        if (!"".equals(text)) {
+            SearchHandler sh = new SearchHandler(text, this);
+            sh.search();
+        }          
+    }//GEN-LAST:event_startButtonActionPerformed
 
-    private void dateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dateTextFieldActionPerformed
-
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        String titleText = titleTextField.getText();
-        String bodyText = bodyTextField.getText();
-        String dateText = dateTextField.getText();
-
-        SearchHandler sh = new SearchHandler(titleText, bodyText, dateText);
-        sh.search();
-    }//GEN-LAST:event_submitButtonActionPerformed
-
-    private void clearButtenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtenActionPerformed
-        titleTextField.setText("");
-        bodyTextField.setText("");
-    }//GEN-LAST:event_clearButtenActionPerformed
+    private void clearButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearButtonMouseClicked
+        this.articleTextArea.setText("");
+    }//GEN-LAST:event_clearButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -290,8 +147,8 @@ public class UINetReali extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                if ("GTKLookAndFeel".equals(info.getName())) {                    
+                    javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
                     break;
                 }
             }
@@ -310,26 +167,20 @@ public class UINetReali extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UINetReali().setVisible(true);
+                UINetReali gui = new UINetReali();
+                gui.setLocationRelativeTo(null);
+                gui.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel bodyLabel;
-    private javax.swing.JTextArea bodyTextField;
-    private javax.swing.JPanel buttensPanel;
-    private javax.swing.JButton clearButten;
-    private javax.swing.JLabel dateLabel;
-    private javax.swing.JFormattedTextField dateTextField;
-    private javax.swing.JLabel instructions2Label;
-    private javax.swing.JLabel instructionsLabel;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton submitButton;
-    private javax.swing.JPanel textfiledPanel;
+    private javax.swing.JTextArea articleTextArea;
+    private javax.swing.JLabel articleTextLabel;
+    private javax.swing.JButton clearButton;
+    private javax.swing.JLabel descLabel;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton startButton;
     private javax.swing.JLabel titleLabel;
-    private javax.swing.JTextField titleTextField;
-    private javax.swing.JLabel welcomeLabel;
-    private javax.swing.JPanel welcomePanel;
     // End of variables declaration//GEN-END:variables
 }
