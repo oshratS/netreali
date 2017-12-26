@@ -11,8 +11,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+enum Services {
+    SCRAPE,
+    EXTRACT,
+    TRANSLATE,
+    COMPARE,
+    ANALYZE,
+};
 
 /**
  *
@@ -21,14 +31,24 @@ import java.util.logging.Logger;
 public class SearchHandler {    
     final private String body; 
     final private UINetReali context;
-    private int searchTaskId;  
+    private int searchTaskId;      
+    private final Map<Services, Boolean> services;
 
-    public SearchHandler(String body, UINetReali context) {        
+    public SearchHandler(String body, UINetReali context, Map<Services, Boolean> services) {        
         this.body = body;        
         this.context = context;
+        
+        this.services = new HashMap<>();
+        this.services.put(Services.SCRAPE, (services != null && services.containsKey(Services.SCRAPE)) ? services.get(Services.SCRAPE) : true);
+        this.services.put(Services.EXTRACT, (services != null && services.containsKey(Services.EXTRACT)) ? services.get(Services.EXTRACT) : false);
+        this.services.put(Services.TRANSLATE, (services != null && services.containsKey(Services.EXTRACT)) ? services.get(Services.TRANSLATE) : true);
+        this.services.put(Services.COMPARE, (services != null && services.containsKey(Services.EXTRACT)) ? services.get(Services.COMPARE) : true);
+        this.services.put(Services.ANALYZE, (services != null && services.containsKey(Services.EXTRACT)) ? services.get(Services.ANALYZE) : true);        
     }
 
     public void search() {
+        truncate_search_tables();
+        
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "zxasqw12")) {
             String query = "INSERT INTO search_tasks (body)"
                     + " VALUES (?)";
@@ -45,22 +65,28 @@ public class SearchHandler {
                     searchTaskId = generatedKeys.getInt(1);                                     
 
                     // start scraping new articles from different sources
-                    System.out.println("    scraping articles...");
-                    ScrapingHandler scraper = new ScrapingHandler();
-                    // scraper.scrapeAndSave(searchTaskId);
-                    System.out.println("scraped articles successfully");
+                    if (services.get(Services.SCRAPE) == true) {
+                        System.out.println("    scraping articles...");
+                        ScrapingHandler scraper = new ScrapingHandler();
+                        scraper.scrapeAndSave(searchTaskId);
+                        System.out.println("scraped articles successfully");
+                    }
 
                     // extract meta text for the articles
-                    // System.out.println("    extracting meta text...");
-                    // ExtractionHandler extractor = new ExtractionHandler();
-                    // extractor.extractAndSave();
-                    // System.out.println("extracted meta text successfully");
+                    if (services.get(Services.EXTRACT) == true) {
+                        System.out.println("    extracting meta text...");
+                        ExtractionHandler extractor = new ExtractionHandler();
+                        extractor.extractAndSave();
+                        System.out.println("extracted meta text successfully");
+                    }
                     
                     // Translate text of all articles
-                    System.out.println("    translating text...");
-                    TxtTranslator translator = new TxtTranslator();
-                    // translator.translateAndSave();
-                    System.out.println("translated text successfully");
+                    if (services.get(Services.TRANSLATE) == true) {
+                        System.out.println("    translating text...");
+                        TxtTranslator translator = new TxtTranslator();
+                        translator.translateAndSave();
+                        System.out.println("translated text successfully");
+                    }
 
                     // translate the text for the body of the search task                    
                     String transBody = TxtTranslator.translate(body);
@@ -70,21 +96,27 @@ public class SearchHandler {
                     // Map<String, ArrayList<String>> searchTaskExtractedMeta = ExtractionHandler.extract(transBody);
 
                     // find similar articles (by term similarity)
-                    System.out.println("    comparing articles...");
-                    ArticleCompareHandler articleComparer = new ArticleCompareHandler();
-                    articleComparer.compareArticles(transBody, searchTaskId);
-                    System.out.println("compared articles successfully");
+                    if (services.get(Services.COMPARE) == true) {
+                        System.out.println("    comparing articles...");
+                        ArticleCompareHandler articleComparer = new ArticleCompareHandler();
+                        articleComparer.compareArticles(transBody, searchTaskId);
+                        System.out.println("compared articles successfully");
+                    }
 
                     // perform sentiment analysis
-                    System.out.println("    performing sentiment analysis on similar articles...");
-                    SentimentAnalysisHandler sentimentAnalyser = new SentimentAnalysisHandler();
-                    sentimentAnalyser.AnalyseSimilarArticles(searchTaskId);
-                    System.out.println("performed sentiment analysis successfully");
+                    if (services.get(Services.ANALYZE) == true) {
+                        System.out.println("    performing sentiment analysis on similar articles...");
+                        SentimentAnalysisHandler sentimentAnalyser = new SentimentAnalysisHandler();
+                        sentimentAnalyser.AnalyseSimilarArticles(searchTaskId);
+                        System.out.println("performed sentiment analysis successfully");
+                    }
                     
                     // present results based on analysis   
-                    context.dispose();
-                    UIFoundResults resGui = new UIFoundResults();
-                    resGui.calculateResults();
+                    if (context != null) {
+                        context.dispose();
+                        UIFoundResults resGui = new UIFoundResults();
+                        resGui.calculateResults();
+                    }
                 } else {
                     throw new SQLException("Creating search task failed, no ID obtained.");
                 }
@@ -100,36 +132,47 @@ public class SearchHandler {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/netreali?&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "zxasqw12")) {
             PreparedStatement preparedStmt;
             String query;
-            
-             query = "TRUNCATE articles;";
-             preparedStmt = conn.prepareStatement(query);
-             preparedStmt.execute();
-             System.out.println("truncated articles successfully");
-
+           
             query = "TRUNCATE search_tasks;";
             preparedStmt = conn.prepareStatement(query);
             preparedStmt.execute();
             System.out.println("truncated search_tasks successfully");
 
-            query = "TRUNCATE translated_articles;";
-            preparedStmt = conn.prepareStatement(query);
-            preparedStmt.execute();
-            System.out.println("truncated translated_articles successfully");
             
-            query = "TRUNCATE extracted_meta;";
-            preparedStmt = conn.prepareStatement(query);
-            preparedStmt.execute();
-            System.out.println("truncated extracted_meta successfully");
+            if (services.get(Services.SCRAPE) == true) {
+                query = "TRUNCATE articles;";
+                preparedStmt = conn.prepareStatement(query);
+                preparedStmt.execute();
+                System.out.println("truncated articles successfully");
+            }
+           
+            if (services.get(Services.TRANSLATE) == true) {
+                query = "TRUNCATE translated_articles;";
+                preparedStmt = conn.prepareStatement(query);
+                preparedStmt.execute();
+                System.out.println("truncated translated_articles successfully");
+            }
             
-            query = "TRUNCATE similar_articles;";
-            preparedStmt = conn.prepareStatement(query);
-            preparedStmt.execute();
-            System.out.println("truncated similar_articles successfully");
+            if (services.get(Services.EXTRACT) == true) {
+                query = "TRUNCATE extracted_meta;";
+                preparedStmt = conn.prepareStatement(query);
+                preparedStmt.execute();
+                System.out.println("truncated extracted_meta successfully");
+            }
             
-            query = "TRUNCATE sentiment_analysis_score;";
-            preparedStmt = conn.prepareStatement(query);
-            preparedStmt.execute();
-            System.out.println("truncated sentiment_analysis_score successfully");
+            if (services.get(Services.COMPARE) == true) {
+                query = "TRUNCATE similar_articles;";
+                preparedStmt = conn.prepareStatement(query);
+                preparedStmt.execute();
+                System.out.println("truncated similar_articles successfully");
+            }
+            
+            if (services.get(Services.ANALYZE) == true) {
+                query = "TRUNCATE sentiment_analysis_score;";
+                preparedStmt = conn.prepareStatement(query);
+                preparedStmt.execute();
+                System.out.println("truncated sentiment_analysis_score successfully");
+            }
             
             conn.close();
         } catch (SQLException ex) {
@@ -138,9 +181,16 @@ public class SearchHandler {
     }
 
     public static void main(String args[]) {        
-        String body = "תקרית חמורה בדרום: הפלסטינים ירו היום (חמישי) פצצות מרגמה לעבר כוח צה\"ל שביצע עבודות הנדסיות על גבול הרצועה. לא היו נפגעים. צה\"ל השיב אש לעבר עמדות של ארגון חמאס. בעקבות הירי הופסקה תנועת הרכבות בין אשקלון לשדרות. הרכבות מדרום יגיעו עד נתיבות ואילו הרכבות מצפון ייעצרו באשדוד. אוטובוסים יפעלו מתי התחנות לרווחת הנוסעים. מוקדם יותר נשמעה באזור עוטף עזה אזעקת צבע אדום, אבל היא הוגדרה כהתרעת שווא. דובר צה\"ל מסר כי \"לפני זמן קצר תקף צה\"ל באמצעות ירי טנקים וכלי טיס של חיל האוויר ארבע מטרות טרור ברצועת עזה. התקיפה בוצעה בתגובה לירי תלול המסלול שבוצע לעבר מוצב צבאי בצפון רצועת עזה. צה\"ל רואה בארגון הטרור חמאס האחראי למתרחש ברצועת עזה\". כזכור, לפני כחודשיים פוצץ צה\"ל מנהרה של ארגון הג'יהאד האסלאמי שחדרה לתוך שטח ישראל. בתקרית נהרגו 12 אנשי הארגון, כשגופות של חמישה מהם נמצאות בידי ישראל. לאחר התקרית איים הג'יהאד האסלאמי לנקום בישראל, ובעקבות זאת נפרסו ברחבי הארץ סוללות כיפת ברזל. לפני כשבועיים הורה צה\"ל לסגור אתרי מטיילים בסמוך לרצועת עזה בעקבות חשש מפיגועי צלפים וירי נ\"ט של ארגון הטרור הסוני. בשבוע שעבר פורסם כי הוגש כתב אישום נגד פעיל חמאס שחצה את הגבול מעזה לישראל. איש, אחמד עביד, בן 23 משכונת סג'עייה, שבעזה, התגייס לארגון הטרור ב-2013. במסגרת פעילותו בחמאס עבר הכשרה צבאית ונטל חלק באימונים צבאיים בתחומי הנ\"ט, ההנדסה והצליפה. עוד עלה כי לקח חלק בחפירת מנהרות בגזרת מגוריו וכן שימש כפעיל כוח הריסון (אבטחת הגבולות) מטעם חמאס. משב\"כ והמשטרה נמסר כי בחקירתו של עביד התקבל מידע רב אודות פעילות מערך המנהרות של חמאס ברצועת עזה - הן מנהרות המיועדות לפעילות התקפית נגד ישראל, והן מנהרות המיועדות ללחימה מול כוחות צה\"ל בתוך שטח הרצועה. חקירתו של עביד חשפה פעם נוספת את פעילות הטרור של חמאס בתחום המנהרות לקידום פעילות טרור כנגד מדינת ישראל. ב-23 באוקטובר הוגש לבית המשפט המחוזי בבאר שבע כתב אישום חמור המייחס לעביד עבירות ביטחון חמורות. יום קודם לכן פורסם כי רשות המעברים במשרד הביטחון סיכלה הברחה של כמה טונות חומר נפץ שהיו בדרכן לגורמי הטרור בעזה. לאחרונה, בשלב ההרצה של המעבדה, הגיעה למעבר כרם שלום משאית, שהובילה מטען של שמנים לרכב, שעוררה את חשד הבודקים הביטחוניים. דגימות מהשמנים הועברו לבדיקת המעבדה, אשר זיהתה שלא מדובר בשמן מנוע תמים, אלא בחומר מסוכן, המיועד לייצור חומרי נפץ בכמות גדולה מאוד.";                        
-        SearchHandler sh = new SearchHandler(body, null);
-        sh.truncate_search_tables();
-        // sh.search();               
+        String body = "טראמפ איים - ומקיים: 285 מיליון דולרים יקוצצו מתקציב האו\"ם האיום של נשיא ארה\"ב לאור תוצאות ההצבעה נגד ההכרה בירושלים הופך למעשי • השגרירה ניקי היילי: \"חוסר היעילות והבזבוז של האו\"ם מוכרים היטב. לא נרשה עוד שינצלו את נדיבות העם האמריקני\" ך ביום חמישי האחרון, בדיון באו\"ם שבסיומו אימצה העצרת הכללית החלטה נגד ההכרה האמריקנית בירושלים כבירת ישראל, איימה שגרירת ארה\"ב ניקי היילי כי להצבעה יהיו השלכות כלכליות. שלשום, בצעד שכנראה כבר תוכנן עוד קודם לכן, הוכיחה היילי כי האיום שהשמיעה היה רציני. השגרירה האמריקנית הודיעה ביום ראשון כי ארה\"ב נשאה ונתנה עם האו\"ם על קיצוץ של 285 מיליון דולר מתקציב הארגון, שאותו הגדירה כ\"נפוח\". לדבריה, \"חוסר היעילות והבזבוז של האו\"ם מוכרים היטב. אנחנו לא נרשה עוד שינצלו את הנדיבות של העם האמריקני\". השגרירה הוסיפה כי ה\"קיצוץ ההיסטורי\" הוא צעד בכיוון הנכון והבטיחה כי ארה\"ב תנקוט צעדים נוספים כדי לקדם ארגון יעיל ואחראי יותר. \"נוסף על החיסכון המשמעותי, הפחתנו במנגנוני הניהול והתמיכה המנופחים של האו\"ם, עיגנו את התמיכה בסדרי עדיפויות אמריקניים ברחבי העולם והשתתנו יותר משמעת ואחריות לאורכה ולרוחבה של המערכת\", נכתב בהודעה מטעם משלחת ארה\"ב לאו\"ם. הקיצוץ מתייחס לתקציב האו\"ם לשנת 2019-2018, והיילי הביעה תקווה כי תוכל לסייע ליישם קיצוצים נוספים גם בשנים הבאות. הצעד מגיע ימים ספורים אחרי הדיון באו\"ם, שעוד לפניו הבטיחה השגרירה האמריקנית כי ארה\"ב \"תרשום שמות\" במהלך ההצבעה - מסר שעליו חזרה גם בנאומה בעצרת. \"אנו נזכור את היום הזה שבו הותקפנו בעצרת האו\"ם על השימוש בריבונות שלנו\", הטיחה היילי מעל בימת האו\"ם, \"אנו נזכור זאת כשיבקשו מאיתנו לשלם. אנחנו נשים את השגרירות שלנו בירושלים - זה הדבר הנכון לעשות. ההחלטה היום לא תשנה זאת. ההחלטה הזו תשנה את האופן שבו האמריקנים תופסים את האו\"ם ואת המדינות שלא מכבדות אותנו באו\"ם. נזכור זאת כשיקראו לנו לתרום שוב לאו\"ם וכשמדינות יבקשו את הכספים והתמיכה שלנו\"";
+        
+        Map<Services, Boolean> services = new HashMap<>();
+        services.put(Services.SCRAPE, false);
+        services.put(Services.EXTRACT, false);
+        services.put(Services.TRANSLATE, false);
+        services.put(Services.COMPARE, true);
+        services.put(Services.ANALYZE, true);
+        
+        SearchHandler sh = new SearchHandler(body, null, services);       
+        sh.search();               
     }
 }

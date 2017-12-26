@@ -21,10 +21,10 @@ public class HaaretzScraper {
 
         try {
             String domain = "https://www.haaretz.co.il";
-            Document doc = Jsoup.connect(domain + "/news/politics").get();
+            Document doc = Jsoup.connect(domain + "/news/world").get();
 
             // get all links in page
-            Elements links = doc.select("article > a");
+            Elements links = doc.select(".l-main article > a");
             links.forEach(link -> {
                 String href = link.attr("href");
                 scraped.put("url", domain + href);
@@ -52,7 +52,8 @@ public class HaaretzScraper {
 
                     save(scraped, searchTaskId);
                 } catch (IOException ex) {
-                    Logger.getLogger(MaarivScraper.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(HaaretzScraper.class.getName()).log(Level.SEVERE, "Exception on url: " + domain + href);
+                    Logger.getLogger(HaaretzScraper.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
         } catch (IOException ex) {

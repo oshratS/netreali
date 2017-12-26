@@ -63,5 +63,10 @@
             <artifactId>swingx-all</artifactId>
             <version>1.6.5-1</version>
         </dependency>
+        <dependency>
+            <groupId>io.cortical</groupId>
+            <artifactId>retina-api-java-sdk</artifactId>
+            <version>1.0.2</version>
+        </dependency>   
     </dependencies>
 </project>

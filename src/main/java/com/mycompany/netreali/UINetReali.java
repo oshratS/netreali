@@ -1,5 +1,8 @@
 package com.mycompany.netreali;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -127,7 +130,13 @@ public class UINetReali extends javax.swing.JFrame {
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         String text = this.articleTextArea.getText();
         if (!"".equals(text)) {
-            SearchHandler sh = new SearchHandler(text, this);
+            Map<Services, Boolean> services = new HashMap<>();
+            services.put(Services.SCRAPE, false);
+            services.put(Services.EXTRACT, false);
+            services.put(Services.TRANSLATE, false);
+            services.put(Services.COMPARE, true);
+            services.put(Services.ANALYZE, true);
+            SearchHandler sh = new SearchHandler(text, this, services);
             sh.search();
         }          
     }//GEN-LAST:event_startButtonActionPerformed

@@ -5,7 +5,10 @@
  */
 package com.mycompany.netreali;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import static com.mycompany.netreali.BagOfWordsSimilarity.consineTextSimilarity;
+import io.cortical.retina.client.LiteClient;
+import io.cortical.retina.rest.ApiException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,7 +26,13 @@ import java.util.logging.Logger;
  */
 public class ArticleCompareHandler {
 
-    private final double SIMILAR_SCORE = 0.8;
+    private final double SIMILAR_SCORE = 0.5;
+    private LiteClient lite;
+    
+    public ArticleCompareHandler(){
+        // Create "lightweight" LiteClient instance
+        this.lite =  new  io.cortical.retina.client.LiteClient("b5c27bf0-ea29-11e7-9586-f796ac0731fb");
+    }
 
     public double compare(ArrayList<String> target, ArrayList<String> source) {
         if (target.isEmpty()) {
@@ -83,8 +92,12 @@ public class ArticleCompareHandler {
                             .replace("\"", "")
                             .trim();
                 }                
+                String joinedBody = String.join(" ", articleBody);
+                String joinedTarget = String.join(" ", targetBody);
+                //double similarityScore = consineTextSimilarity(targetBody, articleBody);
                 
-                double similarityScore = consineTextSimilarity(targetBody, articleBody);    
+                // Compute the similarity between two texts
+                double similarityScore = lite.compare(joinedTarget, joinedBody);
                 System.out.println("similarityScore: " + similarityScore);
                 if (similarityScore >= SIMILAR_SCORE) {
                     System.out.println("sScore: " + similarityScore);
@@ -100,6 +113,10 @@ public class ArticleCompareHandler {
             conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JsonProcessingException ex) {
+            Logger.getLogger(ArticleCompareHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ApiException ex) {
+            Logger.getLogger(ArticleCompareHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }       
 }

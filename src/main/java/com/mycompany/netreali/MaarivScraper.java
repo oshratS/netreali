@@ -22,7 +22,7 @@ public class MaarivScraper {
         try {
             // fetch the document over HTTP
             String domain = "http://www.maariv.co.il";
-            Document doc = Jsoup.connect(domain + "/news/military").get();
+            Document doc = Jsoup.connect(domain + "/news/world").get();
 
             // get all links in page
             Elements links = doc.select("ul.list-category-articles li > a:first-child");
@@ -57,6 +57,7 @@ public class MaarivScraper {
 
                     save(scraped, searchTaskId);
                 } catch (IOException ex) {
+                    Logger.getLogger(MaarivScraper.class.getName()).log(Level.SEVERE, "Exception on url: " + domain + href);
                     Logger.getLogger(MaarivScraper.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });

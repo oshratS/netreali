@@ -31,10 +31,10 @@ public class YNETScraper {
         try {
             // fetch the document over HTTP
             String domain = "http://www.ynet.co.il";
-            Document doc = Jsoup.connect(domain + "/home/0,7340,L-344,00.html").get();
+            Document doc = Jsoup.connect(domain + "/home/0,7340,L-192,00.html").get();
 
             // get all links in page
-            Elements links = doc.select("div.art_headlines_item > a");
+            Elements links = doc.select(".top-story-text > a.title, .art_headlines_item_content > a");
             links.forEach(link -> {
                 String href = link.attr("href");
                 scraped.put("url", domain + href);
@@ -62,7 +62,8 @@ public class YNETScraper {
 
                     save(scraped, searchTaskId);
                 } catch (IOException ex) {
-                    Logger.getLogger(YNETScraper.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(YNETScraper.class.getName()).log(Level.SEVERE, "Exception on url: " + domain + href);
+                    Logger.getLogger(YNETScraper.class.getName()).log(Level.SEVERE, null, ex);                   
                 }
             });
         } catch (IOException ex) {
