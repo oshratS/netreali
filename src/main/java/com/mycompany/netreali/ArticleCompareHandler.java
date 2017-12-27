@@ -113,9 +113,7 @@ public class ArticleCompareHandler {
             conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(ExtractionHandler.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JsonProcessingException ex) {
-            Logger.getLogger(ArticleCompareHandler.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ApiException ex) {
+        } catch (JsonProcessingException | ApiException ex) {
             Logger.getLogger(ArticleCompareHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }       

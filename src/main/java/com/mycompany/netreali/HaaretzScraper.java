@@ -47,11 +47,13 @@ public class HaaretzScraper {
 
                     // get the body
                     Element bodyElm = articleDoc.select(".l-article__entry .t-body-text").first();
-                    String articleBody = bodyElm.text();
-                    scraped.put("body", articleBody);
+                    if (bodyElm != null && bodyElm.hasText()) {
+                        String articleBody = bodyElm.text();
+                        scraped.put("body", articleBody);
+                    }
 
                     save(scraped, searchTaskId);
-                } catch (IOException ex) {
+                } catch (IOException | NullPointerException ex) {
                     Logger.getLogger(HaaretzScraper.class.getName()).log(Level.SEVERE, "Exception on url: " + domain + href);
                     Logger.getLogger(HaaretzScraper.class.getName()).log(Level.SEVERE, null, ex);
                 }
