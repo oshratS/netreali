@@ -30,7 +30,7 @@ CREATE TABLE `sentiment_analysis_score` (
   `search_task_id` int(11) NOT NULL,
   `score` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `sentiment_analysis_score` (
 
 LOCK TABLES `sentiment_analysis_score` WRITE;
 /*!40000 ALTER TABLE `sentiment_analysis_score` DISABLE KEYS */;
-INSERT INTO `sentiment_analysis_score` VALUES (1,13,1,-1.2512281678022328),(2,33,1,-1.0762897281908808),(3,34,1,-0.9879182871094813),(4,52,1,-0.5434460805277795);
+INSERT INTO `sentiment_analysis_score` VALUES (1,9,1,0.7191581252365474),(2,10,1,1.5356072701860763),(3,30,1,-0.35101518042795954);
 /*!40000 ALTER TABLE `sentiment_analysis_score` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-16 16:11:40
+-- Dump completed on 2017-12-27 23:40:18

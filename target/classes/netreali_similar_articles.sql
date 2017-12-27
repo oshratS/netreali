@@ -31,7 +31,7 @@ CREATE TABLE `similar_articles` (
   `search_task_id` int(11) NOT NULL,
   `similarity_score` decimal(3,2) unsigned zerofill DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `similar_articles` (
 
 LOCK TABLES `similar_articles` WRITE;
 /*!40000 ALTER TABLE `similar_articles` DISABLE KEYS */;
-INSERT INTO `similar_articles` VALUES (1,1,13,1,0.91),(2,1,33,1,0.97),(3,1,34,1,1.00),(4,1,52,1,0.95);
+INSERT INTO `similar_articles` VALUES (1,1,9,1,0.59),(2,1,10,1,0.59),(3,1,30,1,0.52);
 /*!40000 ALTER TABLE `similar_articles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-16 16:11:40
+-- Dump completed on 2017-12-27 23:40:18
